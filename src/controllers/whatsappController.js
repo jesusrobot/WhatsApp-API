@@ -5,7 +5,19 @@
  */
 
 const verifyToken = (req, res) => {
-  res.send('Hello from verifyToken method')
+  try {
+    let accessToken = process.env.ACCESS_TOKEN
+    let token = req.query['hub.verify_token']
+    let challenge = req.body['hub.challenge']
+
+    if (challenge !== null && token !== null && token === accessToken) {
+      res.send(challenge)
+    } else {
+      res.status(400).send()
+    }
+  } catch (e) {
+    res.status(400).send()
+  }
 }
 
 const receiveMessage = (req, res) => {
