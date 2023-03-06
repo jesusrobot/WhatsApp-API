@@ -1,6 +1,8 @@
+const fs = require('fs')
+const myConsole = new console.Console(fs.createWriteStream('./logs.txt'))
 /**
  * Hay dos métodos importantes para usar el api de wp
- * 1. verificacion del token
+ * 1. verificacion del token de wp
  * 2. recivir los mensajes que llegan de wp
  */
 
@@ -21,7 +23,18 @@ const verifyToken = (req, res) => {
 }
 
 const receiveMessage = (req, res) => {
-  res.send('Hello from receiveMessage method')
+  try {
+    let entry = (req.body['entry'])[0]
+    let changes = (entry['changes'])[0]
+    let value = changes['value']
+    let messageObject = value['messages']
+    
+    myConsole.log(messageObject)
+    res.send('EVENT_RECEIVED')
+  } catch (e) {
+    myConsole.log(e)
+    res.send('EVENT_RECEIVED')
+  }
 }
 
 module.exports = {
