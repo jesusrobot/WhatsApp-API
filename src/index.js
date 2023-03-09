@@ -1,11 +1,15 @@
-const express = require('express')
-const app = express()
+const Server = require('./server')
 
-const routes = require('./routes/routes')
-const port = process.env.PORT || 3000
+const server = new Server()
 
-app.use(express.json())
+// const express = require('express')
+// const app = express()
 
-app.use('/whatsapp', routes)
+// const routes = require('./routes/routes')
+// const port = process.env.PORT || 3000
 
-app.listen(port, () => {console.log(`🌎 Server running on port ${port}`);})
+// app.use(express.json())
+
+// app.use('/whatsapp', routes)
+
+// app.listen(port, () => {console.log(`🌎 Server running on port ${port}`)})
